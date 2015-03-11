@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="ngcms">
+
+<!-- Head Section -->
+
+<head>
+    <title>ngcms</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<!-- Body Section -->
+
+<body ng-cloak>
+    <div>
+        <div ng-include src="'views/home.html'"></div>
+        <div ng-view></div>
+        <div ng-include src="'views/footer.html'"></div>
+    </div>
+
+
+    <!-- Script Included -->
+
+    <!-- jQuery script included -->
+    <script src="scripts/jQuery/jquery-1.11.2.min.js"></script>
+
+    <!-- Angularjs Script Included -->
+    <script src="scripts/angular/angular.min.js"></script>
+    <script src="scripts/angular/angular-route.min.js"></script>
+
+    <!-- Bootstrap Script Included -->
+    <script src="scripts/bootstrap/bootstrap.min.js"></script>
+    <!-- Custom Dropdown select box -->
+    <script type="text/javascript" src="scripts/bootstrap/bootstrap-select.min.js"></script>
+
+</body>
+</html>
