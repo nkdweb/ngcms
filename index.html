@@ -17,16 +17,18 @@
     <!--<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">-->
 
     <!-- ngcms CSS Styles -->
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="styles/custom.css">
+
+    <link rel="stylesheet" href="styles/others/toaster.css">
 
 </head>
 
 <!-- Body Section -->
 
 <body>
-    <div>
+    <div class="wrapper">
         <div ng-include src="'views/header.html'"></div>
-        <div ng-view></div>
+        <div ng-view class="main_content"></div>
         <div ng-include src="'views/footer.html'"></div>
     </div>
 
@@ -41,6 +43,9 @@
     <!-- Angularjs Script Included -->
     <script src="scripts/angular/angular.min.js"></script>
     <script src="scripts/angular/angular-route.min.js"></script>
+    <script src="scripts/angular/angular-animate.min.js"></script>
+
+    <script src="scripts/others/toaster.js"></script>
     
     <!-- Our Website Javascripts -->
     <script src="scripts/ngcms.js"></script>
@@ -48,5 +53,9 @@
     <!-- Custom Dropdown select box -->
     <script type="text/javascript" src="scripts/bootstrap/bootstrap-select.min.js"></script>
 
+    <script src="scripts/data.js"></script>
+    <script src="scripts/directives.js"></script>
+    <script src="scripts/authCtrl.js"></script>
+    <toaster-container toaster-options="{'time-out': 3000}"></toaster-container>
 </body>
 </html>

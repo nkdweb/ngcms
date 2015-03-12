@@ -6,14 +6,12 @@
 /**
  * Main AngularJS Web Application
  */
-var app = angular.module('ngcms', [
-  'ngRoute'
-]);
+var ngcmsapp = angular.module('ngcms',['ngRoute', 'ngAnimate', 'toaster']);
 
 /**
  * Configure the Routes
  */
-app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+ngcmsapp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
   $routeProvider
     // Home
     .when("/", {templateUrl: "views/home.html", controller: "PageCtrl"})
@@ -26,23 +24,70 @@ app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $lo
     // Blog
     .when("/blog", {templateUrl: "views/blog.html", controller: "BlogCtrl"})
     .when("/blog/post", {templateUrl: "views/blog_item.html", controller: "BlogCtrl"})
+    .when('/login', {
+            title: 'Login',
+            templateUrl: 'views/login.html',
+            controller: 'authCtrl'
+        })
+            .when('/logout', {
+                title: 'Logout',
+                templateUrl: 'views/login.html',
+                controller: 'logoutCtrl'
+            })
+            .when('/signup', {
+                title: 'Signup',
+                templateUrl: 'views/signup.html',
+                controller: 'authCtrl'
+            })
+            .when('/dashboard', {
+                title: 'Dashboard',
+                templateUrl: 'views/dashboard.html',
+                controller: 'authCtrl'
+            })
+            .when('/', {
+                title: 'Login',
+                templateUrl: 'views/login.html',
+                controller: 'authCtrl',
+                role: '0'
+            })
     // else 404
     .otherwise("/404", {templateUrl: "views/404.html", controller: "PageCtrl"});
     // if you don't wish to set base URL then use this
     //$locationProvider.html5Mode(true);
 }]);
 
+ngcmsapp.run(function ($rootScope, $location, Data) {
+    $rootScope.$on("$routeChangeStart", function (event, next, current) {
+        $rootScope.authenticated = false;
+        Data.get('session').then(function (results) {
+            if (results.uid) {
+                $rootScope.authenticated = true;
+                $rootScope.uid = results.uid;
+                $rootScope.name = results.name;
+                $rootScope.email = results.email;
+            } else {
+                var nextUrl = next.$$route.originalPath;
+                if (nextUrl == '/signup' || nextUrl == '/login') {
+
+                } else {
+                    $location.path("/login");
+                }
+            }
+        });
+    });
+});
+
 /**
  * Controls the Blog
  */
-app.controller('BlogCtrl', function (/* $scope, $location, $http */) {
+ngcmsapp.controller('BlogCtrl', function (/* $scope, $location, $http */) {
   console.log("Blog Controller reporting for duty.");
 });
 
 /**
  * Controls all other Pages
  */
-app.controller('PageCtrl', function (/* $scope, $location, $http */) {
+ngcmsapp.controller('PageCtrl', function (/* $scope, $location, $http */) {
   console.log("Page Controller reporting for duty.");
 
   // Activates the Carousel
